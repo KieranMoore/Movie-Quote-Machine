@@ -18,12 +18,12 @@ function list() {
 				quote += "<hr>";
 				$("#quotes").append(quote);
 
-				//Adds padding to CSS
+				//Adds padding and box shadow
 				document.getElementById("quotes").setAttribute("style", "padding:10px; box-shadow: 10px 10px 5px #888888;");
 			});
 		},
 		error: function(result) {
-			console.log(result);
+			alert ("Oops! Something went wrong, Please try again.");
 		}
 	});
 
@@ -31,43 +31,43 @@ function list() {
 //End of List() function
 
 
-//Numberical carousel - input select
-$(function(){
-    var $select = $("#noSelect");
-    for (i=1;i<=7;i++){
-        $select.append($('<option></option>').val(i).html(i))
-    }
-});
-//End of input select
-
 //Value Function() - Calls a movie quote based on the users selected input.
 function selectValue() {
 
     var quoteNumber = document.getElementById("noSelect").value;
     console.log (quoteNumber);
 
-	$.ajax({
-		url: "http://movie-quotes-2.herokuapp.com/api/v1/quotes" + "/" + quoteNumber,
-		type: "get",
-		dataType: "json",
-		success: function(result) {
-				console.log(result);
 
-				var quote = "";
-				quote += "<p><em>" + result.content + "</em></p>";
-				quote += "<p>&mdash; " + result.character + ", " +  result.film + "</em></p>";
-				quote += "<hr>";
-				//.empty() Clears <div id="quotes"> so results do not stack
-				$("#quotes").empty().append(quote);
+    //Alert to ensure user chooses a valid value
+    if (quoteNumber > 7) {
+    	alert ("Please choose a valid number and try again.");
+    }
 
-				//Adds padding to CSS
-				document.getElementById("quotes").setAttribute("style", "padding:10px; box-shadow: 10px 10px 5px #888888;");
-				
-		},
-		error: function(result) {
-			console.log(result);
-		}
-	}); 
+    else { 
+
+		$.ajax({
+			url: "http://movie-quotes-2.herokuapp.com/api/v1/quotes" + "/" + quoteNumber,
+			type: "get",
+			dataType: "json",
+			success: function(result) {
+					console.log(result);
+
+					var quote = "";
+					quote += "<p><em>" + result.content + "</em></p>";
+					quote += "<p>&mdash; " + result.character + ", " +  result.film + "</em></p>";
+					quote += "<hr>";
+					//.empty() Clears <div id="quotes"> so results do not stack
+					$("#quotes").empty().append(quote);
+
+					//Adds padding and box shadow
+					document.getElementById("quotes").setAttribute("style", "padding:10px; box-shadow: 10px 10px 5px #888888;");
+					
+			},
+			error: function(result) {
+				alert ("Please choose a valid number and try again.");
+			}
+		}); 
+	}
 
 }
 
@@ -90,14 +90,15 @@ function random() {
 				quote += "<hr>";
 				//.empty() Clears <div id="quotes"> so results do not stack
 				$("#quotes").empty().append(quote);
-				//Adds padding to CSS
+				//Adds padding and box shadow
 				document.getElementById("quotes").setAttribute("style", "padding:10px; box-shadow: 10px 10px 5px #888888;" );
 				
 
 		},
 		error: function(result) {
-			console.log(result);
+			alert ("Oops! omething went wrong, Please try again.");
 		}
+	
 	});
 
 }
