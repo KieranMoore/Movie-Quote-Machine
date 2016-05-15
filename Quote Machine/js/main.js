@@ -38,13 +38,6 @@ function selectValue() {
     console.log (quoteNumber);
 
 
-    //Alert to ensure user chooses a valid value
-    if (quoteNumber > 7) {
-    	alert ("Please choose a valid number and try again.");
-    }
-
-    else { 
-
 		$.ajax({
 			url: "http://movie-quotes-2.herokuapp.com/api/v1/quotes" + "/" + quoteNumber,
 			type: "get",
@@ -67,7 +60,6 @@ function selectValue() {
 				alert ("Please choose a valid number and try again.");
 			}
 		}); 
-	}
 
 }
 
